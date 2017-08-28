@@ -30,7 +30,7 @@ class Photo extends React.Component{
 	render(){
 		return(
 			<div className="photo">
-				<img src="img/rubikicon.jpg" alt="RubikIcon"/>
+				<img src={this.props.image} alt="RubikIcon"/>
 			</div>
 		)
 	}
@@ -40,10 +40,10 @@ class Bio extends React.Component{
 	render(){
 		return(
 			<div className="bio">
-				<h1 className="name">Manu.name</h1>
-				<h2 className="location">London, UK</h2>
+				<h1 className="name">{this.props.name}</h1>
+				<h2 className="location">{this.props.location}</h2>
 				<div className="occupation">
-					<p>Looking for a FrontEnd Developer job</p>
+					<p>{this.props.occupation}</p>
 				</div>
 			</div>	
 		)
@@ -67,8 +67,12 @@ class Card extends React.Component{
 	render(){
 		return(
 			<div className="card">
-				<Photo />
-				<Bio />
+				<Photo image={"img/rubikicon.jpg"}/>
+				<Bio 
+					name={"Manuel.name"} 
+					location={"London, UK"} 
+					occupation={"Looking for a FrontEnd Developer job"}
+				/>
 				<Updates />	
 			</div>
 		)
