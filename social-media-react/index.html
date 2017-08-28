@@ -100,27 +100,51 @@
 			}
 		]
 	}
+	
+	class Photo extends React.Component{
+		render(){
+			return(
+				<div className="photo">
+					<img src="img/rubikicon.jpg" alt="RubikIcon"/>
+				</div>
+			)
+		}
+	}	
+
+	class Bio extends React.Component{
+		render(){
+			return(
+				<div className="bio">
+					<h1 className="name">Manu.name</h1>
+					<h2 className="location">London, UK</h2>
+					<div className="occupation">
+						<p>Looking for a FrontEnd Developer job</p>
+					</div>
+				</div>	
+			)
+		}
+	}	
+
+	class Updates extends React.Component{
+		render(){
+			return(
+				<div className="updates">
+					<ul>
+						<li className="update">updates</li>
+						<li className="update">updates</li>
+					</ul>
+				</div>	
+			)
+		}
+	}
 
 	class Card extends React.Component{
 		render(){
 			return(
 				<div className="card">
-					<div className="photo">
-						<img src="img/rubikicon.jpg" alt="RubikIcon"/>
-					</div>
-					<div className="bio">
-						<h1 className="name">Manu.name</h1>
-						<h2 className="location">London, UK</h2>
-						<div className="occupation">
-							<p>Looking for a FrontEnd Developer job</p>
-						</div>
-					</div>	
-					<div className="updates">
-						<ul>
-							<li className="update">updates</li>
-							<li className="update">updates</li>
-						</ul>
-					</div>
+					<Photo />
+					<Bio />
+					<Updates />	
 				</div>
 			)
 		}
