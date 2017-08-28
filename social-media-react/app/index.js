@@ -3,7 +3,7 @@ var person={
 	location: 'London, UK',
 	occupation: {
 		title: 'FrontEnd Developer',
-		employer: 'A lucky person/company'
+		employer: 'a lucky person/company'
 	},
 	photo: './img/rubikicon.jpg',
 	updates: [
@@ -43,7 +43,7 @@ class Bio extends React.Component{
 				<h1 className="name">{this.props.name}</h1>
 				<h2 className="location">{this.props.location}</h2>
 				<div className="occupation">
-					<p>{this.props.occupation}</p>
+					<p>{this.props.occupation.title} for {this.props.occupation.employer}.</p>
 				</div>
 			</div>	
 		)
@@ -67,11 +67,11 @@ class Card extends React.Component{
 	render(){
 		return(
 			<div className="card">
-				<Photo image={"img/rubikicon.jpg"}/>
+				<Photo image={person.photo}/>
 				<Bio 
-					name={"Manuel.name"} 
-					location={"London, UK"} 
-					occupation={"Looking for a FrontEnd Developer job"}
+					name={person.name} 
+					location={person.location} 
+					occupation={person.occupation}
 				/>
 				<Updates />	
 			</div>

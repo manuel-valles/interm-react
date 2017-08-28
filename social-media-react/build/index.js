@@ -3,7 +3,7 @@ var person = {
 	location: 'London, UK',
 	occupation: {
 		title: 'FrontEnd Developer',
-		employer: 'A lucky person/company'
+		employer: 'a lucky person/company'
 	},
 	photo: './img/rubikicon.jpg',
 	updates: [{
@@ -52,7 +52,10 @@ class Bio extends React.Component {
 				React.createElement(
 					'p',
 					null,
-					this.props.occupation
+					this.props.occupation.title,
+					' for ',
+					this.props.occupation.employer,
+					'.'
 				)
 			)
 		);
@@ -87,11 +90,11 @@ class Card extends React.Component {
 		return React.createElement(
 			'div',
 			{ className: 'card' },
-			React.createElement(Photo, { image: "img/rubikicon.jpg" }),
+			React.createElement(Photo, { image: person.photo }),
 			React.createElement(Bio, {
-				name: "Manuel.name",
-				location: "London, UK",
-				occupation: "Looking for a FrontEnd Developer job"
+				name: person.name,
+				location: person.location,
+				occupation: person.occupation
 			}),
 			React.createElement(Updates, null)
 		);
