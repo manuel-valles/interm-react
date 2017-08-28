@@ -7,7 +7,7 @@ var person = {
 	},
 	photo: './img/rubikicon.jpg',
 	updates: [{
-		platform: 'twitter',
+		platform: "twitter",
 		status: "I'm happy, hope you're happy too!"
 	}, {
 		platform: 'twitter',
@@ -63,6 +63,15 @@ class Bio extends React.Component {
 }
 
 class Updates extends React.Component {
+	updates() {
+		return this.props.updates.map(function (update, index) {
+			return React.createElement(
+				'li',
+				{ className: "update " + update.platform, key: index },
+				update.status
+			);
+		});
+	}
 	render() {
 		return React.createElement(
 			'div',
@@ -70,16 +79,7 @@ class Updates extends React.Component {
 			React.createElement(
 				'ul',
 				null,
-				React.createElement(
-					'li',
-					{ className: 'update' },
-					'updates'
-				),
-				React.createElement(
-					'li',
-					{ className: 'update' },
-					'updates'
-				)
+				this.updates()
 			)
 		);
 	}
@@ -96,7 +96,7 @@ class Card extends React.Component {
 				location: person.location,
 				occupation: person.occupation
 			}),
-			React.createElement(Updates, null)
+			React.createElement(Updates, { updates: person.updates })
 		);
 	}
 }

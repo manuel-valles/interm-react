@@ -8,7 +8,7 @@ var person={
 	photo: './img/rubikicon.jpg',
 	updates: [
 		{
-			platform: 'twitter',
+			platform: "twitter",
 			status: "I'm happy, hope you're happy too!"
 		},			
 		{
@@ -51,12 +51,20 @@ class Bio extends React.Component{
 }	
 
 class Updates extends React.Component{
+	updates(){
+		return this.props.updates.map(function(update, index){
+			return(
+				<li className={"update " + update.platform} key={index}>
+					{update.status}
+				</li>
+			);
+		});
+	}
 	render(){
 		return(
 			<div className="updates">
 				<ul>
-					<li className="update">updates</li>
-					<li className="update">updates</li>
+					{this.updates()}
 				</ul>
 			</div>	
 		)
@@ -73,7 +81,7 @@ class Card extends React.Component{
 					location={person.location} 
 					occupation={person.occupation}
 				/>
-				<Updates />	
+				<Updates updates={person.updates}/>	
 			</div>
 		)
 	}
