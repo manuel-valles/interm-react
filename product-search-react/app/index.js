@@ -1,13 +1,25 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+class SearchBar extends React.Component{
+	
+	handleQuery(e){
+		console.log(e.target.value);
+	}
+	render(){
+		return(
+			<div className="search-bar">
+				<input onChange={this.handleQuery.bind(this)} type="text" placeholder="Search"/>
+			</div>
+		);
+	}
+}
+
 class Search extends React.Component{
 	render(){
 		return(
 			<div className="search">
-				<div className="search-bar">
-					<input type="text" placeholder="Search"/>
-				</div>
+				<SearchBar />
 				<div className="results">
 					<div className="in-stock">
 						<h2><a href="#">Toothpaste</a></h2>
