@@ -1,73 +1,68 @@
-// ASSIGMENT
-// Let
-let limit = 100;
-limit=200;
-console.log(limit);
-// Const
-const limit2 = 120;
-// limit2 +=100;7  //This gives us a read-only error
-console.log(limit2);
-
-const emails = ['frodo@email.com', 'samwise@email.com', 'marry@email.com'];
-// emails = []; //This gives us a read-only error
-emails.push('pippin@email.com'); //Otherwise this will run fine.
-console.log(emails);
-
-// BLOCK SCOPING
-// Let - Const has the same behavior here, since it's global/local scope
-let limit3 = 200;
-{
-	let limit3 = 10;
-	console.log('backstage limit=', limit3);
+// FUNCTION DECLARATION
+function cheer(){
+	console.log("Woohoo!");
 }
-console.log('overal venue limit=', limit3);
+cheer();
 
-// Var
-var limit4 = 200;
-{
-	var limit4 = 10;
-	console.log('backstage limit=', limit4);
+// (ANONYMOUS) FUNCTION EXPRESSION
+var cheer = function(){
+	console.log("Sup!");
 }
-console.log('overal venue limit=', limit4);
+cheer();
 
-// TEMPLATE LITERAL
-let a=`good`;
-let greeting =`${a} morning`;
-console.log(a);
-console.log(greeting);
+setTimeout(function(){
+	console.log("Hey there!");
+}, 3000);
 
-// SPREAD OPERATOR
-let b=[20,30,40];
-let c=[10,...b,50];
+// ARRAY FUNCTION
+setTimeout(()=>{console.log("Hellooo!");}, 3000);
+var cheer = ()=>{console.log("What's up!");}
+
+cheer();
+
+// BUILT-IN HELPER METHODS
+// MAP method
+let values = [20, 30, 40];
+let double = (n)=>{
+	return n*2;
+}
+let doubled = values.map(double);
+console.log(doubled);
+// Shorter option:
+let values2 = [20, 30, 40];
+let doubled2 = values2.map((n)=>n*2);
+console.log(doubled2);
+
+// FILTER method
+// Ex: Points scored for every basketball player during a game
+let points = [7,16,21,4,3,22,5];
+// I want to know those who has exceed 15 points
+let best = points.filter((p)=>p>15);
+console.log(best);
+
+// STRING.REPEAT
+// Returns a new string of concatenated copies.
+let b = "wooh" + "oo".repeat(50);
+console.log(b);
+
+let c = `wooh${" ".repeat(50)}oo`;
 console.log(c);
 
-let d=['Dana', 'Erik', 'Frank'];
-let e=['Alice', 'Bob', 'Carl', ...d];
-console.log(e);
+// SEARCHING (startWith,...)
+console.log("butterfly".startsWith("butter"));
 
-function collect(...a){
-	console.log(a);
+// CHECKING NUMBERS
+const addToCart = (item, number)=>{
+	// return Number.isFinite(number);
+	return Number.isSafeInteger(number);
 }
-collect(1,2,3,4,5);
 
-// DESTRUCTING ASSIGNMENTS 
-let f = [4,5,6];
-/*let four = f[0];
-let five = f[1];*/
-let [four, five] = f;
-console.log(four, five);
+console.log(addToCart('shirt', 5));
+console.log(addToCart('shirt', Infinity));
+console.log(addToCart('shirt', Math.pow(2, 54)));
 
-let animals = ['Simba', 'Zazu', 'Ed'];
-let [lion, bird] = animals;
-console.log(lion, bird);
-
-let king = {name: 'Mufasa', kids:1};
-/*let name = king.name;
-let kids = king.kids;*/
-let {name, kids}= king;
-console.log(name, kids);
-
-let son = {name2: 'Simba', parents:2};
-let name2, parents;
-({name2, parents} = son);
-console.log(name2, parents);
+import{fellowship, total} from './fellowship';
+import {add} from './math';
+import multiply from './math';
+console.log(fellowship, total);
+console.log(add(2,7), multiply(2,7));
