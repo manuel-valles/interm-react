@@ -1,0 +1,1 @@
+console.log("Hello World form Webpack!!, with an automatic update too!");
