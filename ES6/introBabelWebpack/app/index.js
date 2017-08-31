@@ -1,83 +1,74 @@
-// SET
-let a = new Set();
-a.add(5);
-a.add(43);
-a.add("Woohoo");
-a.add({x: 50, y: 200});
-console.log(a);
-
-// Properties to get some info from the Set: size; has();
-console.log(a.size);
-console.log(a.has(5));
-console.log(a.has(7));
-
-// Convert an array into a Set
-let numbers = [5, 7, 8, 13, 17];
-let numSet = new Set(numbers);
-console.log(numSet);
-
-// Enhanced For Loop
-for(let element of numSet.values()){
-	console.log(element);
-}
-
-// How to know what the characters are in a string?
-// Convert the string into an array, then pass it to a set.
-
-let chars = 'afadeofrjgfgnbxlcjqewtjirwsldfna;ffnvdgbt';
-console.log(chars.length);
-let chars_arr = chars.split('');
-let chars_set = new Set(chars_arr);
-console.log(chars_set);
-
-// MAPS
-let b = new Map();
-let key_1 = "string Key";
-let key_2 = {a: 'key'};
-let key_3 = function(){};
-b.set(key_1, 'return value for a string key');
-b.set(key_2, 'return value for an object key');
-b.set(key_3, 'return value for a function key');
-console.log(b);
-
-//  Array into a Map
-let numArr = [[1, 'one'],[2,'two'],[3,'three']];
-let valMap = new Map(numArr);
-console.log(valMap);
-
-// Iterate
-for(let [key, value] of valMap.entries()){
-	console.log(`${key} points to ${value}`);
-}
-
-// Example before but counting how many we have for each letter.
-let string = 'adepforjfekjdvkgjrwptpwoejrq;elckdafpoefoefjrprgerg';
-let letters = new Map();
-for(let i=0; i<string.length; i++){
-	let letter = string[i];
-	if(!letters.has(letter)){
-		letters.set(letter, 1);
-	} else{
-		letters.set(letter, letters.get(letter)+1);
+// CLOSURES
+let call = () => {
+	let secret = 'ES6 rocks!';
+	let reveal = () => {
+		console.log(secret);
 	}
+	reveal();
 }
 
-console.log(letters);
+call();
 
-// Now using a function
-let string2 = 'supercalifragilisticexpialidocious';
-const countLetter = (word, orig_letter) => {
-  let letter = new Map();
-  for (let i=0; i<word.length; i++) {
-    let letter = word[i];
-    if (!letters.has(letter)) {
-      letters.set(letter, 1);
-    } else {
-      letters.set(letter, letters.get(letter) + 1);
-    }
-  }
-  return letters.get(orig_letter);
-};
-let a_count = countLetter(string2, 'a');
-let x_count = countLetter(string2, 'x');
-console.log(a_count, x_count);
+// Lexical Scoping
+let call2 = () => {
+	let secret = 'ES6 rocks!';
+	let reveal = () => {
+		console.log(secret);
+	}
+	return reveal;
+}
+
+let unveil = call2();
+unveil();
+
+// FUNCTION FACTORIES
+// Ex1
+const addSuffix = (x) =>{
+	const concat = (y) =>{
+		return y+x;
+	}
+	return concat;
+}
+
+let add_ness = addSuffix('ness');
+console.log(add_ness);
+let h = add_ness('happi');
+console.log(h);
+
+let add_full =  addSuffix('ful');
+let f = add_full('fruit');
+console.log(f);
+
+// Ex2 - Numbers - Shorter way:
+const product = x => y => y*x;
+
+let mult5 = product(5);
+console.log(mult5(3));
+
+let double = product(2);
+console.log(double(9));
+
+// DATA ENCAPSULATION & PRIVATE METHOD
+const budget = () => {
+	// private data:
+	let balance = 0;
+	// private method:
+	let changeBal = (val) => {
+		return balance += val;
+	}
+	// closure to give the user ways to manipulate this private balance data:
+	const deposit20 = () => changeBal(20);
+	const withdraw20 = () => changeBal(-20);
+	const check = () => balance;
+	// return an object to have access to it
+	return{deposit20, withdraw20, check}
+}
+
+let wallet = budget();
+console.log(wallet);
+wallet.deposit20();
+wallet.withdraw20();
+wallet.deposit20();
+wallet.deposit20();
+console.log(wallet.check());
+console.log(wallet.balance);
