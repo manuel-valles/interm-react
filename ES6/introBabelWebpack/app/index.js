@@ -1,68 +1,56 @@
-// FUNCTION DECLARATION
-function cheer(){
-	console.log("Woohoo!");
-}
-cheer();
+// CLASSES
+import Animal from './Animal';
 
-// (ANONYMOUS) FUNCTION EXPRESSION
-var cheer = function(){
-	console.log("Sup!");
-}
-cheer();
+// New instance
+let king = new Animal("Mufasa", 4.5);
+console.log(king);
+king.hello();
 
-setTimeout(function(){
-	console.log("Hey there!");
-}, 3000);
-
-// ARRAY FUNCTION
-setTimeout(()=>{console.log("Hellooo!");}, 3000);
-var cheer = ()=>{console.log("What's up!");}
-
-cheer();
-
-// BUILT-IN HELPER METHODS
-// MAP method
-let values = [20, 30, 40];
-let double = (n)=>{
-	return n*2;
-}
-let doubled = values.map(double);
-console.log(doubled);
-// Shorter option:
-let values2 = [20, 30, 40];
-let doubled2 = values2.map((n)=>n*2);
-console.log(doubled2);
-
-// FILTER method
-// Ex: Points scored for every basketball player during a game
-let points = [7,16,21,4,3,22,5];
-// I want to know those who has exceed 15 points
-let best = points.filter((p)=>p>15);
-console.log(best);
-
-// STRING.REPEAT
-// Returns a new string of concatenated copies.
-let b = "wooh" + "oo".repeat(50);
-console.log(b);
-
-let c = `wooh${" ".repeat(50)}oo`;
-console.log(c);
-
-// SEARCHING (startWith,...)
-console.log("butterfly".startsWith("butter"));
-
-// CHECKING NUMBERS
-const addToCart = (item, number)=>{
-	// return Number.isFinite(number);
-	return Number.isSafeInteger(number);
+// INHERITING CLASSES
+class Lion extends Animal {
+	constructor(name, height, color){
+		super(name, height);
+		this.color = color;
+	}
+	hello(){
+		console.log(`Hi! I'm ${this.name} from Pride Rock!`)
+	}
 }
 
-console.log(addToCart('shirt', 5));
-console.log(addToCart('shirt', Infinity));
-console.log(addToCart('shirt', Math.pow(2, 54)));
+let son = new Lion("Simba", 2, "golden");
+console.log(son);
+son.hello();
 
-import{fellowship, total} from './fellowship';
-import {add} from './math';
-import multiply from './math';
-console.log(fellowship, total);
-console.log(add(2,7), multiply(2,7));
+// STATIC METHODS
+class Calculator{
+	static multiply(a,b){
+		return a*b;
+	}
+	static add(a,b){
+		return a+b;
+	}
+}
+
+let a = Calculator.multiply(5,7);
+let b = Calculator.add(5,7);
+console.log(a, b);
+
+// PROTOTYPES
+function Wizard(name, house, pet){
+	this.name = name;
+	this.house = house;
+	this.pet = pet;
+
+	this.greet = ()=>`I'm ${this.name} from ${this.house}`;
+}
+
+Wizard.prototype.pet_name;
+Wizard.prototype.info= function (){
+	return `I have a ${this.pet} named ${this.pet_name}`;
+}
+let harry = new Wizard("Harry Potter", "Gryffindor", "Owl");
+harry.pet_name="Hewdwig";
+console.log(harry);
+console.log(harry.greet());
+console.log(harry.info());
+
