@@ -1,74 +1,97 @@
-// CLOSURES
-let call = () => {
-	let secret = 'ES6 rocks!';
-	let reveal = () => {
-		console.log(secret);
-	}
-	reveal();
-}
-
-call();
-
-// Lexical Scoping
-let call2 = () => {
-	let secret = 'ES6 rocks!';
-	let reveal = () => {
-		console.log(secret);
-	}
-	return reveal;
-}
-
-let unveil = call2();
-unveil();
-
-// FUNCTION FACTORIES
+// GENERATORS
 // Ex1
-const addSuffix = (x) =>{
-	const concat = (y) =>{
-		return y+x;
+function* letterMaker(){
+	yield 'a';
+	yield 'b';
+	yield 'c';
+}
+let letterGen = letterMaker();
+console.log(letterGen.next().value);	// a
+console.log(letterGen.next().value);	// b
+console.log(letterGen.next().value);	// c
+console.log(letterGen.next().value); 	// undefined
+
+// Ex2
+function* countMaker(){
+	let count=0;
+	while(count<4){
+		yield count++;
 	}
-	return concat;
+}
+let countGen = countMaker();
+console.log(countGen.next().value);	// 0
+console.log(countGen.next().value);	// 1
+console.log(countGen.next().value);	// 2
+console.log(countGen.next().value);	// 3
+
+// Controlling Flow With Generators
+function* evens(){
+	let count = 0;
+	while(true){
+		count+=2;
+		let reset = yield count;
+		if(reset){
+			count = 0;
+		}
+	}
 }
 
-let add_ness = addSuffix('ness');
-console.log(add_ness);
-let h = add_ness('happi');
-console.log(h);
+let sequence = evens();
+console.log('Flow starts here:');
+console.log(sequence.next().value);
+console.log(sequence.next().value);
+console.log(sequence.next().value);
+console.log(sequence.next(true).value);
+console.log(sequence.next().value);
 
-let add_full =  addSuffix('ful');
-let f = add_full('fruit');
-console.log(f);
+// GENERATOR VS ITERATOR
+const arrayIterator = (array) => {
+	let index = 0;
 
-// Ex2 - Numbers - Shorter way:
-const product = x => y => y*x;
-
-let mult5 = product(5);
-console.log(mult5(3));
-
-let double = product(2);
-console.log(double(9));
-
-// DATA ENCAPSULATION & PRIVATE METHOD
-const budget = () => {
-	// private data:
-	let balance = 0;
-	// private method:
-	let changeBal = (val) => {
-		return balance += val;
+	return {
+		next: () => {
+			if (index < array.length){
+				let next = array[index];
+				index++;
+				return next;
+			}
+		}
 	}
-	// closure to give the user ways to manipulate this private balance data:
-	const deposit20 = () => changeBal(20);
-	const withdraw20 = () => changeBal(-20);
-	const check = () => balance;
-	// return an object to have access to it
-	return{deposit20, withdraw20, check}
 }
 
-let wallet = budget();
-console.log(wallet);
-wallet.deposit20();
-wallet.withdraw20();
-wallet.deposit20();
-wallet.deposit20();
-console.log(wallet.check());
-console.log(wallet.balance);
+let it = arrayIterator([1,2,3]);
+console.log('Iterator starts here:');
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+
+// More effective Iterator with a Generator
+function* arrayGenerator(){
+	yield arguments;
+}
+
+let gen = arrayGenerator(1,2,3);
+console.log(gen.next().value);
+
+// One for each argument
+function* arrayGenerator2(){
+	for(let arg of arguments){
+		yield arg;
+	}
+}
+let gen2 = arrayGenerator2(1,2,3);
+console.log(gen2.next().value);
+console.log(gen2.next().value);
+console.log(gen2.next().value);
+console.log(gen2.next().value);
+
+// A shorter version:
+function* arrayGenerator3(){
+	yield* arguments;
+}
+let gen3 = arrayGenerator3(1,2,3);
+console.log(gen3.next().value);
+console.log(gen3.next().value);
+console.log(gen3.next().value);
+console.log(gen3.next().value);
