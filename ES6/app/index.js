@@ -1,26 +1,67 @@
-// PROMISES
-let p = new Promise((resolve, reject)=>{
-	// resolve('Resolve promise data');
-	// reject('Reject promise data');
-	setTimeout(()=>resolve('Resolved promise data'), 3000);
-});
+// ES7 FEATURES
+// Power
+let a=Math.pow(2,5);
+console.log(a);
+// New feature **
+let b=2**5;
+console.log(b);
 
-p.then(response => console.log(response))
-	.catch(error => console.log(error));
+// Includes
+let c = "wonderful".includes("butter");
+console.log(c);
+// New feature - Also with arrays:
+let d = [2,3,4,5,6].includes(4);
+console.log(d);
 
-console.log('After promise consumption');
+// ES8 PROPOSALS
 
-// FETCH METHOD
-// Ex1
-const root = 'http://jsonplaceholder.typicode.com/posts/1';
+let obj = {a: 'one', b: 'two', c: 'three'};
+let keys = Object.keys(obj);
+console.log(keys);
+// Values(obj) proposal
+let values = Object.values(obj);
+console.log(values);
+// Entries(obj) proposal
+let entries = Object.entries(obj);
+console.log(entries);
+for (let entry of entries){
+	console.log(`key: ${entry[0]}, value: ${entry[1]}`);
+}
 
-fetch(root, {method: "GET"})
-	.then(response=>response.json())
-	.then(json=>console.log(json));
+// Async keyword
+async function async_one(){
+	return "one";
+}
 
-// Ex2
-const root2 = 'https://www.googleapis.com/books/v1/volumes?q=isbn:0747532699';
+async_one().then(response=>console.log(response));
 
-fetch(root2, {method: "GET"})
-	.then(response=>response.json())
-	.then(json=>console.log(json));
+async function async_two(){
+	throw new Error('Issue with async!')
+}
+
+async_two().then(response=>console.log(response))
+	.catch(error=>console.log(error));
+
+async function async_three(){
+	return "three";
+}
+// Await keyword:
+/*tells an async function to wait for a resolved value 
+before continuing to execute code*/
+async function async_four(){
+	const one = await async_one();
+	console.log(one);
+	const three = await async_three();
+	console.log(three);
+}
+
+async_four();
+
+async function async_five(){
+	const [res_one, res_three] = await Promise.all(
+		[async_one(), async_three()]
+	)
+	console.log(res_one, res_three);
+}
+
+async_five();
